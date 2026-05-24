@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Lift.45">
+<link rel="apple-touch-icon" href="https://i.ibb.co/Q731bH5M/dumbellicon.png">
+<title>45 Min Dumbbell Routine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f4f2ee;
+    --blue: #1a6cf5;
+    --blue-dim: #0f3d8c;
+    --blue-pale: #d6e4ff;
+    --gray: #888;
+    --border: rgba(244,242,238,0.1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem;
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    background: rgba(10,10,10,0.85);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+  .nav-logo span { color: var(--blue); }
+
+  .nav-meta {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100svh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 7rem 3rem 4rem;
+    gap: 4rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 20%; right: 10%;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,108,245,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 8.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 2rem;
+  }
+  h1 em { font-style: normal; color: var(--blue); display: block; }
+
+  .hero-desc {
+    font-size: 0.92rem;
+    color: var(--gray);
+    max-width: 360px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+
+  .hero-stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--white);
+    line-height: 1;
+  }
+  .hero-stat-num span { color: var(--blue); font-size: 1.3rem; }
+
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--gray);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* Weight rack */
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-end;
+  }
+
+  .weight-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    justify-content: flex-end;
+    opacity: 0;
+    transform: translateX(30px);
+    animation: slideIn 0.6s ease forwards;
+  }
+  .weight-bar:nth-child(1) { animation-delay: 0.1s; }
+  .weight-bar:nth-child(2) { animation-delay: 0.2s; }
+  .weight-bar:nth-child(3) { animation-delay: 0.3s; }
+  .weight-bar:nth-child(4) { animation-delay: 0.4s; }
+  .weight-bar:nth-child(5) { animation-delay: 0.5s; }
+  .weight-bar:nth-child(6) { animation-delay: 0.6s; }
+  .weight-bar:nth-child(7) { animation-delay: 0.7s; }
+
+  @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+
+  .weight-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+    min-width: 46px;
+    text-align: right;
+  }
+  .weight-track {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    flex: 1;
+    max-width: 220px;
+  }
+  .weight-fill {
+    height: 100%;
+    background: var(--blue);
+    border-radius: 2px;
+  }
+  .weight-pill {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    color: var(--white);
+    min-width: 72px;
+    text-align: center;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--blue);
+    letter-spacing: 0.15em;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: auto;
+    min-width: 20px;
+    max-width: 200px;
+  }
+
+  /* BLOCKS GRID */
+  .blocks-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .block-card {
+    background: var(--black);
+    padding: 1.75rem 1.5rem;
+    transition: background 0.25s;
+  }
+  .block-card:hover { background: #111; }
+  .block-card.featured { background: var(--blue); }
+  .block-card.featured:hover { background: #1e75ff; }
+
+  .block-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+  .block-card.featured .block-index { color: rgba(255,255,255,0.5); }
+
+  .block-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+    line-height: 1.1;
+  }
+  .block-card.featured .block-name { color: #fff; }
+
+  .block-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--gray);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.25rem;
+  }
+  .block-card.featured .block-time { color: rgba(255,255,255,0.6); }
+
+  .block-exercises { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .block-exercises li {
+    font-size: 0.78rem;
+    color: var(--gray);
+    padding-left: 0.7rem;
+    border-left: 1px solid var(--border);
+    line-height: 1.4;
+  }
+  .block-card.featured .block-exercises li {
+    color: rgba(255,255,255,0.7);
+    border-left-color: rgba(255,255,255,0.25);
+  }
+
+  /* EXERCISE TABLE */
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  .ex-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 480px;
+  }
+  .ex-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+  .ex-table td {
+    padding: 1rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.86rem;
+    vertical-align: middle;
+  }
+  .ex-table tbody tr { transition: background 0.2s; }
+  .ex-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+  .ex-move { font-weight: 400; color: var(--white); }
+  .ex-block-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 1px;
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .tag-warmup { background: rgba(26,108,245,0.1); color: var(--blue); border: 1px solid rgba(26,108,245,0.2); }
+  .tag-a { background: rgba(244,242,238,0.05); color: var(--white); border: 1px solid var(--border); }
+  .tag-b { background: rgba(26,108,245,0.15); color: var(--blue-pale); border: 1px solid rgba(26,108,245,0.3); }
+  .tag-c { background: rgba(244,242,238,0.05); color: var(--white); border: 1px solid var(--border); }
+  .tag-finish { background: var(--blue); color: #fff; border: 1px solid var(--blue); }
+
+  .ex-weight-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+    white-space: nowrap;
+  }
+  .ex-sets {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gray);
+    white-space: nowrap;
+  }
+
+  /* TIPS */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .tip-card {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--blue);
+  }
+  .tip-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: rgba(255,255,255,0.04);
+    position: absolute;
+    bottom: 0.25rem; right: 0.75rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .tip-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--blue);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 0.65rem;
+  }
+  .tip-text {
+    font-size: 0.85rem;
+    color: var(--gray);
+    line-height: 1.75;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 2rem;
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    color: var(--gray);
+  }
+  .footer-logo span { color: var(--blue); }
+  .footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(136,136,136,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+
+  /* =====================
+     MOBILE RESPONSIVE
+  ===================== */
+  @media (max-width: 768px) {
+    nav {
+      padding: 1rem 1.25rem;
+      padding-top: max(1rem, env(safe-area-inset-top));
+    }
+    .nav-meta { display: none; }
+
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 6rem 1.5rem 3rem;
+      gap: 2.5rem;
+      min-height: auto;
+    }
+    .hero::before { display: none; }
+
+    h1 { font-size: clamp(4.5rem, 20vw, 6rem); margin-bottom: 1.25rem; }
+
+    .hero-desc { font-size: 0.88rem; max-width: 100%; margin-bottom: 2rem; }
+
+    .hero-stats { gap: 1.5rem; }
+    .hero-stat-num { font-size: 2rem; }
+
+    .hero-right { align-items: stretch; }
+    .weight-bar { justify-content: flex-start; }
+    .weight-track { max-width: none; }
+    .weight-pill { min-width: 64px; font-size: 0.85rem; }
+
+    section { padding: 3.5rem 1.5rem; }
+
+    .section-title { font-size: clamp(1.8rem, 8vw, 2.5rem); }
+    .section-line { display: none; }
+
+    .blocks-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .tips-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    footer {
+      padding: 1.5rem 1.25rem;
+      padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blocks-grid {
+      grid-template-columns: 1fr;
+    }
+    .block-card.featured { order: -1; }
+
+    h1 { font-size: clamp(4rem, 22vw, 5.5rem); }
+
+    .hero-stats { gap: 1.25rem; }
+    .hero-stat-num { font-size: 1.8rem; }
+    .hero-stat-num span { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">LIFT<span>.</span>45</div>
+  <div class="nav-meta">DUMBBELL PROGRAM / V1.0</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-tag fade-up">Full dumbbell routine</div>
+    <h1 class="fade-up delay-1">45<em>MIN</em></h1>
+    <p class="hero-desc fade-up delay-2">A structured, progressive dumbbell program using 8 to 55 lb weights. Four focused blocks — push, pull, lower body, and core.</p>
+    <div class="hero-stats fade-up delay-3">
+      <div class="hero-stat">
+        <div class="hero-stat-num">14<span>ex</span></div>
+        <div class="hero-stat-label">Exercises</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">7<span>wt</span></div>
+        <div class="hero-stat-label">Weight sets</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">60<span>s</span></div>
+        <div class="hero-stat-label">Rest / set</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="weight-bar">
+      <div class="weight-label">8 LBS</div>
+      <div class="weight-track"><div class="weight-fill" style="width:14%"></div></div>
+      <div class="weight-pill">8 LBS</div>
+    </div>
+    <div class="weight-bar">
+      <div class="weight-label">15 LBS</div>
+      <div class="weight-track"><div class="weight-fill" style="width:27%"></div></div>
+      <div class="weight-pill">15 LBS</div>
+    </div>
+    <div class="weight-bar">
+      <div class="weight-label">20 LBS</div>
+      <div class="weight-track"><div class="weight-fill" style="width:36%"></div></div>
+      <div class="weight-pill">20 LBS</div>
+    </div>
+    <div class="weight-bar">
+      <div class="weight-label">25 LBS</div>
+      <div class="weight-track"><div class="weight-fill" style="width:45%"></div></div>
+      <div class="weight-pill">25 LBS</div>
+    </div>
+    <div class="weight-bar">
+      <div class="weight-label">35 LBS</div>
+      <div class="weight-track"><div class="weight-fill" style="width:63%"></div></div>
+      <div class="weight-pill">35 LBS</div>
+    </div>
+    <div class="weight-bar">
+      <div class="weight-label">45 LBS</div>
+      <div class="weight-track"><div class="weight-fill" style="width:81%"></div></div>
+      <div class="weight-pill">45 LBS</div>
+    </div>
+    <div class="weight-bar">
+      <div class="weight-label">55 LBS</div>
+      <div class="weight-track"><div class="weight-fill" style="width:100%"></div></div>
+      <div class="weight-pill">55 LBS</div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="section-header">
+    <div class="section-num">01</div>
+    <div class="section-title">PROGRAM STRUCTURE</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="blocks-grid">
+    <div class="block-card">
+      <div class="block-index">00 — 05 MIN</div>
+      <div class="block-name">WARM-UP</div>
+      <div class="block-time">5 minutes</div>
+      <ul class="block-exercises">
+        <li>Arm circles + shoulder rolls</li>
+        <li>Goblet squat — slow descent</li>
+        <li>Romanian deadlift — hinge practice</li>
+      </ul>
+    </div>
+    <div class="block-card featured">
+      <div class="block-index">05 — 18 MIN</div>
+      <div class="block-name">BLOCK A<br>UPPER PUSH</div>
+      <div class="block-time">13 minutes</div>
+      <ul class="block-exercises">
+        <li>Shoulder press — 25 lbs</li>
+        <li>Floor chest press — 35 lbs</li>
+        <li>Lateral raises — 8 lbs</li>
+      </ul>
+    </div>
+    <div class="block-card">
+      <div class="block-index">18 — 31 MIN</div>
+      <div class="block-name">BLOCK B<br>LOWER BODY</div>
+      <div class="block-time">13 minutes</div>
+      <ul class="block-exercises">
+        <li>Goblet squat — 45 lbs</li>
+        <li>Romanian deadlift — 55 lbs</li>
+        <li>Reverse lunge — 25 lbs</li>
+      </ul>
+    </div>
+    <div class="block-card">
+      <div class="block-index">31 — 45 MIN</div>
+      <div class="block-name">BLOCK C + CORE</div>
+      <div class="block-time">14 minutes</div>
+      <ul class="block-exercises">
+        <li>Bent-over row — 35 lbs</li>
+        <li>Hammer curl — 20 lbs</li>
+        <li>Single-arm row — 45 lbs</li>
+        <li>Russian twist — 15 lbs</li>
+        <li>Farmer's carry — 55 lbs</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-num">02</div>
+    <div class="section-title">ALL EXERCISES</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="table-wrap">
+    <table class="ex-table">
+      <thead>
+        <tr>
+          <th>BLOCK</th>
+          <th>EXERCISE</th>
+          <th>SETS × REPS</th>
+          <th>WEIGHT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="ex-block-tag tag-warmup">WARM-UP</span></td><td class="ex-move">Arm circles + shoulder rolls</td><td class="ex-sets">2 × 30 sec</td><td class="ex-weight-val">BW</td></tr>
+        <tr><td><span class="ex-block-tag tag-warmup">WARM-UP</span></td><td class="ex-move">Goblet squat — slow</td><td class="ex-sets">2 × 8</td><td class="ex-weight-val">15 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-warmup">WARM-UP</span></td><td class="ex-move">Romanian deadlift — hinge practice</td><td class="ex-sets">2 × 8</td><td class="ex-weight-val">20 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-a">BLOCK A</span></td><td class="ex-move">Dumbbell shoulder press</td><td class="ex-sets">3 × 10</td><td class="ex-weight-val">25 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-a">BLOCK A</span></td><td class="ex-move">Dumbbell chest press (floor)</td><td class="ex-sets">3 × 10</td><td class="ex-weight-val">35 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-a">BLOCK A</span></td><td class="ex-move">Lateral raises</td><td class="ex-sets">3 × 12</td><td class="ex-weight-val">8 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-b">BLOCK B</span></td><td class="ex-move">Goblet squat</td><td class="ex-sets">3 × 12</td><td class="ex-weight-val">45 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-b">BLOCK B</span></td><td class="ex-move">Romanian deadlift</td><td class="ex-sets">3 × 10</td><td class="ex-weight-val">55 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-b">BLOCK B</span></td><td class="ex-move">Dumbbell reverse lunge</td><td class="ex-sets">3 × 10 / leg</td><td class="ex-weight-val">25 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-c">BLOCK C</span></td><td class="ex-move">Bent-over row</td><td class="ex-sets">3 × 10</td><td class="ex-weight-val">35 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-c">BLOCK C</span></td><td class="ex-move">Hammer curl</td><td class="ex-sets">3 × 12</td><td class="ex-weight-val">20 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-c">BLOCK C</span></td><td class="ex-move">Single-arm row</td><td class="ex-sets">3 × 10 / side</td><td class="ex-weight-val">45 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-finish">FINISHER</span></td><td class="ex-move">Dumbbell Russian twist</td><td class="ex-sets">2 × 20</td><td class="ex-weight-val">15 LBS</td></tr>
+        <tr><td><span class="ex-block-tag tag-finish">FINISHER</span></td><td class="ex-move">Farmer's carry</td><td class="ex-sets">2 × 30 sec</td><td class="ex-weight-val">55 LBS</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="section-header">
+    <div class="section-num">03</div>
+    <div class="section-title">PROTOCOL NOTES</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-num">01</div>
+      <div class="tip-label">Rest periods</div>
+      <div class="tip-text">60 seconds between sets. 90 seconds between blocks. Extend if form degrades — better to rest than rush.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">02</div>
+      <div class="tip-label">Weight scaling</div>
+      <div class="tip-text">Drop one weight tier if form breaks down, especially on RDL and shoulder press. Control matters more than load.</div>
+    </div>
+    <div class="tip-card">
+      <div class="tip-num">03</div>
+      <div class="tip-label">Tempo</div>
+      <div class="tip-text">Keep a 2–1–2 tempo on most lifts — 2 seconds down, pause, 2 seconds up. Slow eccentrics build more muscle.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">LIFT<span>.</span>45</div>
+  <div class="footer-text">45 MIN · 14 EXERCISES · 7 WEIGHT SETS</div>
+</footer>
+
+</body>
+</html>
